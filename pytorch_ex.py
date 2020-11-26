@@ -44,10 +44,11 @@ class Net(nn.Module):
         x = self.fc3(x)
         return x
 
+net = Net()
+
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
-net = Net()
 for epoch in range(2):  # loop over the dataset multiple times
 
     running_loss = 0.0
