@@ -43,34 +43,37 @@ class Net(nn.Module):
         super(Net, self).__init__()
 
         # 3 input image channel, 6 output channels, 5x5 square convolution
+        #A convolutional layer applies the same (usually small) filter repeatedly at different positions in the layer below it.
+
         self.conv_layrs = nn.Sequential(
-            nn.Conv2d(3, 32, 3, padding = 1),
+            nn.Conv2d(3, 32, 5, padding = 1),
             nn.ReLU(),
+            nn.BatchNorm2d(32),
             nn.MaxPool2d(2, 2),
 
-            nn.Conv2d(32, 64, 3, padding = 1),
+            nn.Conv2d(32, 64, 5, padding = 1),
             nn.ReLU(),
+            nn.BatchNorm2d(64),
             nn.MaxPool2d(2, 2),
 
-            nn.Conv2d(64, 128, 3, padding = 1),
+            nn.Conv2d(64, 128, 5, padding = 1),
             nn.ReLU(),
+            nn.BatchNorm2d(128),
             nn.MaxPool2d(2, 2),
             
         )
-
+    
+        #FC layers are used to detect specific global configurations of the features detected by the lower layers in the net.
         self.fc_layrs = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(2048,1024),
-            nn.ReLU(),
-            nn.Linear(1024,512),
-            nn.ReLU(),
+            #nn.Linear(2048,1024),
+            #nn.ReLU(),
+            #nn.Linear(1024,512),
+            #nn.ReLU(),
             nn.Linear(512,10),
         )
 
         # an affine operation: y = Wx + b
-
-    #A convolutional layer applies the same (usually small) filter repeatedly at different positions in the layer below it.
-    #FC layers are used to detect specific global configurations of the features detected by the lower layers in the net. 
 
     def forward(self, x):
 
@@ -85,7 +88,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(net.parameters(), lr=0.0005)
 
 
-for epoch in range(5):  # loop over the dataset multiple times
+for epoch in range(2):  # loop over the dataset multiple times
 
     running_loss = 0.0 # just a counter?
 
