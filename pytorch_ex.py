@@ -60,9 +60,11 @@ class Net(nn.Module):
 
         self.fc_layrs = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(512,64),
+            nn.Linear(2048,1024),
             nn.ReLU(),
-            nn.Linear(64,10)
+            nn.Linear(1024,512),
+            nn.ReLU(),
+            nn.Linear(512,10),
         )
 
         # an affine operation: y = Wx + b
