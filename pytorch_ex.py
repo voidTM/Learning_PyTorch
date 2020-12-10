@@ -50,11 +50,13 @@ class Net(nn.Module):
             nn.ReLU(),
             nn.BatchNorm2d(16),
             nn.MaxPool2d(2, 2),
+            nn.Dropout(0.1),
 
             nn.Conv2d(16, 32, 3, padding = 1),
             nn.ReLU(),
             nn.BatchNorm2d(32),
             nn.MaxPool2d(2, 2),
+            nn.Dropout(0.1),
 
             nn.Conv2d(32, 64, 4, padding = 1),
             nn.ReLU(),
@@ -70,6 +72,7 @@ class Net(nn.Module):
             #nn.ReLU(),
             #nn.Linear(1024,512),
             #nn.ReLU(),
+            nn.Dropout(0.1),
             nn.Linear(576,10),
             #nn.Linear(512,10)
         )
@@ -86,7 +89,7 @@ net = Net()
 criterion = nn.CrossEntropyLoss()
 
 optimizer = optim.Adam(net.parameters(), lr=0.0004)
-
+#optimizer = optim.SGD(net.parameters(), lr=0.0004, momentum = 0.9)
 
 for epoch in range(5):  # loop over the dataset multiple times
 
