@@ -58,7 +58,7 @@ class Net(nn.Module):
             nn.MaxPool2d(2, 2),
             nn.Dropout(0.1),
 
-            nn.Conv2d(32, 64, 4, padding = 1),
+            nn.Conv2d(32, 64, 3),
             nn.ReLU(),
             nn.BatchNorm2d(64),
             nn.MaxPool2d(2, 2),
@@ -88,10 +88,11 @@ net = Net()
 
 criterion = nn.CrossEntropyLoss()
 
-optimizer = optim.Adam(net.parameters(), lr=0.0004)
+optimizer = optim.Adam(net.parameters(), lr=0.0004, weight_decay=0.01)
+
 #optimizer = optim.SGD(net.parameters(), lr=0.0004, momentum = 0.9)
 
-for epoch in range(5):  # loop over the dataset multiple times
+for epoch in range(3):  # loop over the dataset multiple times
 
     running_loss = 0.0 # just a counter?
 
